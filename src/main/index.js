@@ -2,18 +2,7 @@
 const serverless = require('serverless-http')
 const app = require('./config/app')
 const env = require('./config/env')
-const AWS = require('aws-sdk')
-
-let dynamoDb
-if (env.IS_OFFLINE === 'true') {
-  dynamoDb = new AWS.DynamoDB.DocumentClient({
-    region: 'localhost',
-    endpoint: 'http://localhost:8000'
-  })
-  console.log(dynamoDb)
-} else {
-  dynamoDb = new AWS.DynamoDB.DocumentClient()
-}
+const dynamoDb = require('../infra/helpers/aws-sdk-helper').createDocument(env.IS_OFFLINE)
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
