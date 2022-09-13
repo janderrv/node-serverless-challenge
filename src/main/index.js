@@ -1,13 +1,11 @@
 
 const serverless = require('serverless-http')
 const app = require('./config/app')
+const env = require('./config/env')
 const AWS = require('aws-sdk')
 
-const EMPLOYEES_TABLE = process.env.EMPLOYEES_TABLE
-
-const IS_OFFLINE = process.env.IS_OFFLINE
 let dynamoDb
-if (IS_OFFLINE === 'true') {
+if (env.IS_OFFLINE === 'true') {
   dynamoDb = new AWS.DynamoDB.DocumentClient({
     region: 'localhost',
     endpoint: 'http://localhost:8000'
@@ -23,7 +21,7 @@ app.get('/', function (req, res) {
 
 app.get('/employees/:id', function (req, res) {
   const params = {
-    TableName: EMPLOYEES_TABLE,
+    TableName: env.EMPLOYEES_TABLE,
     Key: {
       id: req.params.id
     }
@@ -52,7 +50,7 @@ app.post('/employees', function (req, res) {
   }
 
   const params = {
-    TableName: EMPLOYEES_TABLE,
+    TableName: env.EMPLOYEES_TABLE,
     Item: {
       id,
       name
