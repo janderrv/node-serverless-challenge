@@ -36,16 +36,16 @@ provider:
 
 functions:
   app:
-    handler: index.handler
+    handler: src/main/index.handler
     events:
       - http: ANY /
       - http: 'ANY /{proxy+}'
   getUser:
-    handler: index.handler
+    handler: src/main/index.handler
     events:
       - http: 'GET /employees/{proxy+}'
   createUser:
-    handler: index.handler
+    handler: src/main/index.handler
     events:
       - http: 'POST /employees'
 

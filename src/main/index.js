@@ -1,7 +1,6 @@
 
 const serverless = require('serverless-http')
-const express = require('express')
-const app = express()
+const app = require('./config/app')
 const AWS = require('aws-sdk')
 
 const EMPLOYEES_TABLE = process.env.EMPLOYEES_TABLE
@@ -17,8 +16,6 @@ if (IS_OFFLINE === 'true') {
 } else {
   dynamoDb = new AWS.DynamoDB.DocumentClient()
 }
-
-app.use(express.json())
 
 app.get('/', function (req, res) {
   res.send('Hello World!')
