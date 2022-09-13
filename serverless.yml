@@ -1,3 +1,5 @@
+org: janderrv
+app: node-serverless-challenge
 service: node-serverless-challenge
 
 custom:
@@ -28,6 +30,14 @@ functions:
     events:
       - http: ANY /
       - http: 'ANY {proxy+}'
+  getUser:
+    handler: index.handler
+    events:
+      - http: 'GET /employees/{proxy+}'
+  createUser:
+    handler: index.handler
+    events:
+      - http: 'POST /employees'
 
 resources:
   Resources:
