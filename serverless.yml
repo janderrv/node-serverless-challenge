@@ -2,8 +2,18 @@ org: janderrv
 app: node-serverless-challenge
 service: node-serverless-challenge
 
+plugins:
+  - serverless-dynamodb-local
+  - serverless-offline
+
 custom:
   tableName: 'employees-${self:provider.stage}'
+  dynamodb:
+    start:
+      migrate: true
+      inMemory: true
+    stages:
+      - ${self:provider.stage}
 
 provider:
   name: aws
@@ -29,7 +39,7 @@ functions:
     handler: index.handler
     events:
       - http: ANY /
-      - http: 'ANY {proxy+}'
+      - http: 'ANY /{proxy+}'
   getUser:
     handler: index.handler
     events:
