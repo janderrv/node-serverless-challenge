@@ -1,5 +1,3 @@
-org: janderrv
-app: node-serverless-challenge
 service: node-serverless
 
 plugins:
