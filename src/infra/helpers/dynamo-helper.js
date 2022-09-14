@@ -5,7 +5,7 @@ module.exports = {
     const ddb = new dynamoose.aws.ddb.DynamoDB({
       accessKeyId: process.env.ACESS_KEY_ID,
       secretAccessKey: process.env.SECRET_ACCESS_KEY,
-      region: process.env.REGION || 'sa-east-1'
+      region: 'sa-east-1'
     })
 
     if (process.env.IS_OFFLINE) {

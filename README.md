@@ -8,7 +8,6 @@
  - Definir as variáves de ambiente
 	 - ACESS_KEY_ID = <b>KEY AWS</b>
 	 - SECRET_ACCESS_KEY =  <b>SECRET KEY AWS</b>
-	 - REGION = <b>Região de preferência, por default é sa-east-1</b>
 
 ###  Executar o deploy na aws
  1. npm i -g serverless
