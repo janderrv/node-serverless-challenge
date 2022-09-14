@@ -47,6 +47,10 @@ functions:
     handler: src/main/index.handler
     events:
       - http: 'PATCH /employees/{id}'
+  deleteEmployee:
+    handler: src/main/index.handler
+    events:
+      - http: 'DELETE /employees/{id}'
 
 resources:
   Resources:
