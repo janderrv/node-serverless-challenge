@@ -3,8 +3,8 @@ const dynamoose = require('dynamoose')
 module.exports = {
   connect () {
     const ddb = new dynamoose.aws.ddb.DynamoDB({
-      accessKeyId: process.env.ACESS_KEY_ID || 'AKIAV3DF4LT2JMY6CO6X',
-      secretAccessKey: process.env.SECRET_ACCESS_KEY || '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',
+      accessKeyId: process.env.ACESS_KEY_ID,
+      secretAccessKey: process.env.SECRET_ACCESS_KEY,
       region: process.env.REGION || 'sa-east-1'
     })
 
