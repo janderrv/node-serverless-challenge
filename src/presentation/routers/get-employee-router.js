@@ -2,28 +2,26 @@ const HttpResponse = require('../helpers/http-response')
 const ParamsValidator = require('../helpers/params-validator')
 const { MissingParamError } = require('../../utils/errors')
 
-module.exports = class UpdateEmployeeRouter {
-  constructor (updateEmployeeUseCase) {
-    this.updateEmployeeUseCase = updateEmployeeUseCase
+module.exports = class GetEmployeeRouter {
+  constructor (getEmployeeUseCase) {
+    this.getEmployeeUseCase = getEmployeeUseCase
   }
 
   async route (httpRequest) {
     try {
-      const { name, age, role } = httpRequest.body
       const { id } = httpRequest.params
-      const missingParam = ParamsValidator.validate({ id, name, age, role })
+      const missingParam = ParamsValidator.validate({ id })
 
       if (missingParam) {
         return HttpResponse.badRequest(new MissingParamError(missingParam))
       }
 
-      let employee = await this.updateEmployeeUseCase.findById(id)
+      const employee = await this.getEmployeeUseCase.findById(id)
 
       if (!employee) {
         return HttpResponse.notFound()
       }
 
-      employee = await this.updateEmployeeUseCase.update(id, name, age, role)
       return HttpResponse.ok(employee)
     } catch (error) {
       console.log(error)

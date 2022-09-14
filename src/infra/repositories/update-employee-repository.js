@@ -1,10 +1,10 @@
 const AwsSdkHelper = require('../helpers/aws-sdk-helper')
 
-module.exports = class UpdateteEmployeeRepository {
+module.exports = class UpdateEmployeeRepository {
   async update (id, name, age, role) {
     const params = {
       TableName: process.env.EMPLOYEES_TABLE,
-      Key: { id },
+      Key: { id: Number(id) },
       UpdateExpression: 'set #name = :name, #age = :age, #role = :role',
       ExpressionAttributeNames: {
         '#name': 'name',
@@ -29,7 +29,7 @@ module.exports = class UpdateteEmployeeRepository {
   async findById (id) {
     const params = {
       TableName: process.env.EMPLOYEES_TABLE,
-      Key: { id }
+      Key: { id: Number(id) }
     }
     const document = AwsSdkHelper.getDocument()
     return document.get(params).promise().then((result) => {

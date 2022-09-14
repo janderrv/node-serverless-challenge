@@ -1,6 +1,7 @@
 const HttpResponse = require('../helpers/http-response')
 const ParamsValidator = require('../helpers/params-validator')
 const { MissingParamError } = require('../../utils/errors')
+
 module.exports = class CreateEmployeeRouter {
   constructor (createEmployeeUseCase) {
     this.createEmployeeUseCase = createEmployeeUseCase

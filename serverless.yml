@@ -38,7 +38,7 @@ functions:
   getEmployee:
     handler: src/main/index.handler
     events:
-      - http: 'GET /employees/{proxy+}'
+      - http: 'GET /employees/{id}'
   createEmployee:
     handler: src/main/index.handler
     events:
@@ -46,7 +46,7 @@ functions:
   updateEmployee:
     handler: src/main/index.handler
     events:
-      - http: 'PATCH /employees/{proxy+}'
+      - http: 'PATCH /employees/{id}'
 
 resources:
   Resources:
