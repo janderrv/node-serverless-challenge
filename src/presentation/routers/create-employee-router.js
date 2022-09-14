@@ -9,14 +9,14 @@ module.exports = class CreateEmployeeRouter {
 
   async route (httpRequest) {
     try {
-      const { id, name, age, role } = httpRequest.body
-      const missingParam = ParamsValidator.validate({ id, name, age, role })
+      const { name, age, role } = httpRequest.body
+      const missingParam = ParamsValidator.validate({ name, age, role })
 
       if (missingParam) {
         return HttpResponse.badRequest(new MissingParamError(missingParam))
       }
 
-      const employee = await this.createEmployeeUseCase.create(id, name, age, role)
+      const employee = await this.createEmployeeUseCase.create(name, age, role)
       return HttpResponse.created(employee)
     } catch (error) {
       console.log(error)

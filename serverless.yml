@@ -1,13 +1,11 @@
-org: janderrv
-app: node-serverless-challenge
-service: node-serverless-challenge
+service: node-serverless
 
 plugins:
   - serverless-dynamodb-local
   - serverless-offline
 
 custom:
-  tableName: 'employees-${self:provider.stage}'
+  tableName: 'employees'
   dynamodb:
     start:
       migrate: true
@@ -21,18 +19,10 @@ provider:
   stage: dev
   region: sa-east-1
   iamRoleStatements:
-    - Effect: Allow
+    - Effect: "Allow"
       Action:
-        - dynamodb:Query
-        - dynamodb:Scan
-        - dynamodb:GetItem
-        - dynamodb:PutItem
-        - dynamodb:UpdateItem
-        - dynamodb:DeleteItem
-      Resource:
-        - { "Fn::GetAtt": ["EmployeesDynamoDBTable", "Arn" ] }
-  environment:
-    EMPLOYEES_TABLE: ${self:custom.tableName}
+        - dynamodb:*
+      Resource: "*"
 
 functions:
   getEmployee:
@@ -51,21 +41,3 @@ functions:
     handler: src/main/index.handler
     events:
       - http: 'DELETE /employees/{id}'
-
-resources:
-  Resources:
-    EmployeesDynamoDBTable:
-      Type: 'AWS::DynamoDB::Table'
-      Properties:
-        AttributeDefinitions:
-          -
-            AttributeName: id
-            AttributeType: "N"
-        KeySchema:
-          -
-            AttributeName: id
-            KeyType: HASH
-        ProvisionedThroughput:
-          ReadCapacityUnits: 1
-          WriteCapacityUnits: 1
-        TableName: ${self:custom.tableName}

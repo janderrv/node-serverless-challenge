@@ -19,10 +19,11 @@
   },
   "homepage": "https://github.com/janderrv/node-serverless-challenge#readme",
   "dependencies": {
-    "aws-sdk": "^2.1215.0",
+    "dynamoose": "^3.1.0",
     "express": "^4.18.1",
     "fast-glob": "^3.2.12",
-    "serverless-http": "^3.0.2"
+    "serverless-http": "^3.0.2",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "husky": "^8.0.1",

@@ -1,40 +1,23 @@
-const AwsSdkHelper = require('../helpers/aws-sdk-helper')
+const DynamoHelper = require('../helpers/dynamo-helper')
+const EmployeeModel = require('../../domain/models/employee-model')
 
 module.exports = class UpdateEmployeeRepository {
   async update (id, name, age, role) {
-    const params = {
-      TableName: process.env.EMPLOYEES_TABLE,
-      Key: { id: Number(id) },
-      UpdateExpression: 'set #name = :name, #age = :age, #role = :role',
-      ExpressionAttributeNames: {
-        '#name': 'name',
-        '#age': 'age',
-        '#role': 'role'
-      },
-      ExpressionAttributeValues: {
-        ':name': name,
-        ':age': age,
-        ':role': role
-      },
-      ReturnValues: 'UPDATED_NEW'
+    const employeesSchema = DynamoHelper.defineModelSchema(EmployeeModel)
+    const employeeModel = DynamoHelper.getModel('employees', employeesSchema)
 
-    }
-    const document = AwsSdkHelper.getDocument()
-    return document.update(params).promise().then((result) => {
-      return { id, ...result.Attributes }
-    }
-    )
+    return employeeModel.update({
+      id,
+      name,
+      age,
+      role
+    })
   }
 
   async findById (id) {
-    const params = {
-      TableName: process.env.EMPLOYEES_TABLE,
-      Key: { id: Number(id) }
-    }
-    const document = AwsSdkHelper.getDocument()
-    return document.get(params).promise().then((result) => {
-      return result.Item
-    }
-    )
+    const employeesSchema = DynamoHelper.defineModelSchema(EmployeeModel)
+    const employeeModel = DynamoHelper.getModel('employees', employeesSchema)
+
+    return employeeModel.get({ id })
   }
 }

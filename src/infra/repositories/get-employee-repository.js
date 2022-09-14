@@ -1,15 +1,10 @@
-const AwsSdkHelper = require('../helpers/aws-sdk-helper')
-
+const DynamoHelper = require('../helpers/dynamo-helper')
+const EmployeeModel = require('../../domain/models/employee-model')
 module.exports = class GetEmployeeRepository {
   async findById (id) {
-    const params = {
-      TableName: process.env.EMPLOYEES_TABLE,
-      Key: { id: Number(id) }
-    }
-    const document = AwsSdkHelper.getDocument()
-    return document.get(params).promise().then((result) => {
-      return result.Item
-    }
-    )
+    const employeesSchema = DynamoHelper.defineModelSchema(EmployeeModel)
+    const employeeModel = DynamoHelper.getModel('employees', employeesSchema)
+
+    return employeeModel.get({ id })
   }
 }

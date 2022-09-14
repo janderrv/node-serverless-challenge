@@ -3,7 +3,7 @@ module.exports = class CreateEmployeeUseCase {
     this.createEmployeeRepository = createEmployeeRepository
   }
 
-  async create (id, name, age, role) {
-    return this.createEmployeeRepository.create(id, name, age, role)
+  async create (name, age, role) {
+    return this.createEmployeeRepository.create(name, age, role)
   }
 }
