@@ -35,19 +35,18 @@ provider:
     EMPLOYEES_TABLE: ${self:custom.tableName}
 
 functions:
-  app:
-    handler: src/main/index.handler
-    events:
-      - http: ANY /
-      - http: 'ANY /{proxy+}'
-  getUser:
+  getEmployee:
     handler: src/main/index.handler
     events:
       - http: 'GET /employees/{proxy+}'
-  createUser:
+  createEmployee:
     handler: src/main/index.handler
     events:
       - http: 'POST /employees'
+  updateEmployee:
+    handler: src/main/index.handler
+    events:
+      - http: 'PATCH /employees/{proxy+}'
 
 resources:
   Resources:

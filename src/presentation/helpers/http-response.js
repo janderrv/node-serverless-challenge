@@ -1,9 +1,16 @@
 const { ServerError } = require('../errors')
 
 module.exports = class HttpResponse {
-  static ok (body) {
+  static created (body) {
     return {
       statusCode: 201,
+      body
+    }
+  }
+
+  static ok (body) {
+    return {
+      statusCode: 200,
       body
     }
   }
@@ -19,6 +26,13 @@ module.exports = class HttpResponse {
     return {
       statusCode: 500,
       body: { error: new ServerError().message }
+    }
+  }
+
+  static notFound () {
+    return {
+      statusCode: 404,
+      body: { error: 'Resource not found' }
     }
   }
 }
