@@ -1,14 +1,26 @@
 const AWS = require('aws-sdk')
 
 module.exports = {
-  createDocument (isOffline = false) {
-    if (isOffline) {
-      return new AWS.DynamoDB.DocumentClient({
+
+  createDocument () {
+    let options = {}
+
+    if (process.env.IS_OFFLINE === 'true') {
+      options = {
         region: 'localhost',
         endpoint: 'http://localhost:8000'
-      })
+      }
     }
 
-    return new AWS.DynamoDB.DocumentClient()
+    this.dynamoDb = new AWS.DynamoDB.DocumentClient(options)
+    return this.dynamoDb
+  },
+
+  getDocument () {
+    if (!this.dynamoDb) {
+      this.createDocument()
+    }
+
+    return this.dynamoDb
   }
 }
